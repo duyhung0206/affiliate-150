@@ -102,6 +102,11 @@ class Magestore_AffiliateplusDirectLink_Block_Adminhtml_Affiliateplusdirectlink_
             'name' => 'link',
             'note' => 'If left blank, it will take banner link',
         ));
+
+        $fieldset->addField('tracknumber', 'note', array(
+            'label' => Mage::helper('affiliateplusdirectlink')->__('Track number'),
+            'text' => $data['tracknumber'],
+        ));
         if ($this->getRequest()->getParam('id')) {
             $status = Mage::getSingleton('affiliateplusdirectlink/status')->getOptionArray();
             $fieldset->addField('status', 'note', array(

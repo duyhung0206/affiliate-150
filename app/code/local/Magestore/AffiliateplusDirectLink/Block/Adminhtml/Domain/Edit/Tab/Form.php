@@ -92,6 +92,14 @@ class Magestore_AffiliateplusDirectLink_Block_Adminhtml_Domain_Edit_Tab_Form ext
             'values' => Mage::getSingleton('affiliateplusdirectlink/status')->getOptionHash(),
         ));
 
+        $domainId = Mage::app()->getRequest()->getParam('id');
+        $domain = Mage::getModel('affiliateplusdirectlink/domain')->load($domainId);
+        $fieldset->addField('tracknumber', 'note', array(
+            'label' => Mage::helper('affiliateplusdirectlink')->__('Track number'),
+            'text' => ($domain->getTracknumber()),
+        ));
+
+
         $form->setValues($data);
         return parent::_prepareForm();
     }

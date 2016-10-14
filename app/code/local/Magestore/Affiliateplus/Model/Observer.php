@@ -127,6 +127,26 @@ class Magestore_Affiliateplus_Model_Observer {
     }
 
     public function controllerActionPredispatch($observer) {
+        //block account is't account affilate
+        $controllerName = Mage::app()->getRequest()->getModuleName();
+        if($controllerName == "affiliates"){
+
+
+            if(Mage::getSingleton('customer/session')->isLoggedIn()) {
+                $customer = Mage::getSingleton('customer/session')->getCustomer();
+                $listcustomeridaffiliate = Mage::helper('affiliateplus')->getAffiliateCustomerIds();
+                if(!in_array($customer->getId(), $listcustomeridaffiliate)){
+                    Mage::app()->getFrontController()->getResponse()->setRedirect(Mage::helper('core/url')->getHomeUrl());
+                    Mage::app()->getResponse()->sendResponse();
+                    return;
+                }
+            }else{
+                Mage::app()->getFrontController()->getResponse()->setRedirect(Mage::helper('core/url')->getHomeUrl());
+                Mage::app()->getResponse()->sendResponse();
+                return;
+            }
+        }
+
         // Changed By Adam 28/07/2014
         if (!Mage::helper('affiliateplus')->isAffiliateModuleEnabled())
             return;
@@ -1622,9 +1642,25 @@ class Magestore_Affiliateplus_Model_Observer {
         // Changed By Adam 28/07/2014
         if (!Mage::helper('affiliateplus')->isAffiliateModuleEnabled())
             return;
+
         $controller = $observer['controller_action'];
         $request = $controller->getRequest();
         $accountCode = $request->getParam('acc');
+        $request = $controller->getRequest();
+//        Zend_Debug::dump($request);
+
+        $direct_link_id = $request->getParam('directlinkid');
+        if(isset($direct_link_id)){
+            $direct_link = Mage::getModel('affiliateplusdirectlink/directlink')->load($direct_link_id);
+            if(isset($direct_link)){
+                $direct_link->setTracknumber($direct_link->getTracknumber()+1)->save();
+                $domainCollection = Mage::getModel('affiliateplusdirectlink/domain')->load($direct_link->getDomainId());
+                if(isset($domainCollection) && $domainCollection->getId() != ''){
+                    $tracknumber = intval($domainCollection->getTracknumber());
+                    $domainCollection->setTracknumber(++$tracknumber)->save();
+                }
+            }
+        }
         // Added By Adam (31/08/2016): save cookie by account id from sub store url
         $account = $this->_getAccountById($request);
         if($account && $account->getStatus() == 1){
@@ -1651,7 +1687,7 @@ class Magestore_Affiliateplus_Model_Observer {
         
         // Changed By Adam 08/05/2015 fix loi tu lay identify code cua affiliate khac
         if(Mage::getStoreConfig('affiliateplus/general/url_param_value') == 2) {
-            $account = Mage::getModel('affiliateplus/account')->getCollection()->addFieldToFilter('account_id', $accountCode)->getFirstItem();
+            $account = Mage::getModel('affilisateplus/account')->getCollection()->addFieldToFilter('account_id', $accountCode)->getFirstItem();
         } else {
             $account = Mage::getModel('affiliateplus/account')->getCollection()->addFieldToFilter('identify_code', $accountCode)->getFirstItem();
         }
@@ -1698,6 +1734,7 @@ class Magestore_Affiliateplus_Model_Observer {
             if ($banner->getStatus() != 1)
                 $banner_id = 0;
         }
+
         /*
          * check
          */

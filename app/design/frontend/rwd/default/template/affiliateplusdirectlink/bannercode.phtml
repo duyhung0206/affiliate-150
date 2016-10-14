@@ -36,7 +36,7 @@
                     <?php echo $this->__('Link: ') ?><a rel="nofollow" href="<?php echo $this->getLink() ?>"><?php echo Mage::helper('core/string')->truncate($this->getLink(), 100) ?></a></strong>
             </div>
             <div class="banner-image">
-                <?php $bannerHtml = '<a href="' . $this->getLink() . '" rel="nofollow" target="_blank"><img src="' . $this->getUrl('affiliateplus/banner/image', array('id' => $banner->getId(), 'account_id' => $account->getId(), 'store_id' => $store_id)) . '" title="' . $banner->getTitle() . '" width="' . $banner->getWidth() . '" height="' . $banner->getHeight() . '" /></a>' ?>
+                <?php $bannerHtml = '<a href="' . $this->getLink() . '?directlinkid='. $this->getDirectlink()->getId().'" rel="nofollow" target="_blank"><img src="' . $this->getUrl('affiliateplus/banner/image', array('id' => $banner->getId(), 'account_id' => $account->getId(), 'store_id' => $store_id)) . '" title="' . $banner->getTitle() . '" width="' . $banner->getWidth() . '" height="' . $banner->getHeight() . '" /></a>' ?>
                 <?php // echo $bannerHtml ?>
             </div>
             <br />
@@ -48,7 +48,7 @@
                     <?php echo $this->__('Link: ') ?><a rel="nofollow" href="<?php echo $this->getLink() ?>"><?php echo Mage::helper('core/string')->truncate($this->getLink(), 100) ?></a></strong>
             </div>
             <div class="banner-flash">
-                <?php $bannerHtml = '<a href="' . $this->getLink() . '" rel="nofollow" target="_blank"><embed src="' . $this->getUrl('affiliateplus/banner/image', array('id' => $banner->getId(), 'account_id' => $account->getId(), 'store_id' => $store_id)) . '" title="' . $banner->getTitle() . '" width="' . $banner->getWidth() . '" height="' . $banner->getHeight() . '" type="application/x-shockwave-flash" wmode="transparent" quality="high" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" /></a>' ?>
+                <?php $bannerHtml = '<a href="' . $this->getLink() . '?directlinkid='. $this->getDirectlink()->getId().'" rel="nofollow" target="_blank"><embed src="' . $this->getUrl('affiliateplus/banner/image', array('id' => $banner->getId(), 'account_id' => $account->getId(), 'store_id' => $store_id)) . '" title="' . $banner->getTitle() . '" width="' . $banner->getWidth() . '" height="' . $banner->getHeight() . '" type="application/x-shockwave-flash" wmode="transparent" quality="high" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" /></a>' ?>
                 <?php // echo $bannerHtml ?>
             </div>
             <br />
@@ -59,7 +59,7 @@
                     <?php echo $this->__('Link: ') ?><a rel="nofollow" href="<?php echo $this->getLink() ?>"><?php echo Mage::helper('core/string')->truncate($this->getLink(), 100) ?></a></strong>
             </div>
             <div class="banner-text">
-                <?php $bannerHtml = '<a href="' . $this->getLink() . '"rel="nofollow" target="_blank" title="' . $banner->getTitle() . '">' . $banner->getTitle() . '</a>' ?>
+                <?php $bannerHtml = '<a href="' . $this->getLink() . '?directlinkid='. $this->getDirectlink()->getId().'" rel="nofollow" target="_blank" title="' . $banner->getTitle() . '">' . $banner->getTitle() . '</a>' ?>
                 <?php $bannerHtml.='<script type="text/javascript" src="' . $this->getUrl('affiliateplus/banner/image', array('id' => $banner->getId(), 'account_id' => $account->getId(), 'store_id' => $store_id)) . '"></script>' ?>
                 <strong><?php echo $this->__('Preview: ') ?></strong><?php // echo $bannerHtml           ?>
 

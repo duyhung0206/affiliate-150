@@ -89,6 +89,12 @@ class Magestore_AffiliateplusDirectLink_Block_Adminhtml_Domain_Edit_Tab_Directli
             'renderer' => 'affiliateplusdirectlink/adminhtml_renderer_directlink',
         ));
 
+        $this->addColumn('tracknumber', array(
+            'header' => Mage::helper('affiliateplusdirectlink')->__('Track number'),
+            'index' => 'tracknumber',
+            'filter_index' => 'main_table.tracknumber',
+        ));
+
         $this->addColumn('action', array(
             'header' => Mage::helper('affiliateplusdirectlink')->__('Action'),
             'width' => '100',

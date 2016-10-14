@@ -113,6 +113,13 @@ class Magestore_AffiliateplusDirectLink_Block_Adminhtml_Affiliateplusdirectlink_
             'options' => Mage::getSingleton('affiliateplusdirectlink/status')->getOptionArray(),
         ));
 
+        $this->addColumn('tracknumber', array(
+            'header' => Mage::helper('affiliateplusdirectlink')->__('Truck number'),
+            'align' => 'right',
+            'width' => '50px',
+            'index' => 'tracknumber',
+        ));
+
         $this->addColumn('action', array(
             'header' => Mage::helper('affiliateplusdirectlink')->__('Action'),
             'width' => '100',
